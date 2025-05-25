@@ -1,0 +1,5 @@
+pytest
+selenium
+pytest-allure-adaptor
+allure-pytest
+faker
