@@ -1,25 +1,18 @@
 import pytest
 import allure
 from pages.main_page import MainPage
-
-FAQ_DATA = [
-    ("Сколько это стоит? И как оплатить?", "Сутки — 400 рублей. Оплата курьеру — наличными или картой."),
-    ("Хочу сразу несколько самокатов! Так можно?", "Пока что у нас так: один заказ — один самокат. Если хотите покататься с друзьями, можете просто сделать несколько заказов — один за другим."),
-    ("Как рассчитывается время аренды?", "Допустим, вы оформляете заказ на 8 мая. Мы привозим самокат 8 мая в течение дня. Отсчёт времени аренды начинается с момента, когда вы оплатите заказ курьеру. Если мы привезли самокат 8 мая в 20:30, суточная аренда закончится 9 мая в 20:30."),
-    ("Можно ли заказать самокат прямо на сегодня?", "Только начиная с завтрашнего дня. Но скоро станем расторопнее."),
-    ("Можно ли продлить заказ или вернуть самокат раньше?", "Пока что нет! Но если что-то срочное — всегда можно позвонить в поддержку по красивому номеру 1010."),
-    ("Вы привозите зарядку вместе с самокатом?", "Самокат приезжает к вам с полной зарядкой. Этого хватает на восемь суток — даже если будете кататься без передышек и во сне. Зарядка не понадобится."),
-    ("Можно ли отменить заказ?", "Да, пока самокат не привезли. Штрафа не будет, объяснительной записки тоже не попросим. Все же свои."),
-    ("Я живу за МКАДом, привезёте?", "Да, обязательно. Всем самокатов! И Москве, и Московской области."),
-]
+from utils.data import FAQ_DATA
+from utils.urls import BASE_URL
 
 @allure.feature("FAQ")
-@pytest.mark.parametrize("index,expected_question,expected_answer", [
-    (i, FAQ_DATA[i][0], FAQ_DATA[i][1]) for i in range(len(FAQ_DATA))
-])
-def test_faq_question(driver, index, expected_question, expected_answer):
-    page = MainPage(driver)
-    page.open("https://qa-scooter.praktikum-services.ru/")
-    page.click_faq_question(index)
-    answer = page.get_faq_answer_text(index)
-    assert expected_answer in answer
+class TestFAQ:
+    @allure.title("Проверка отображения ответа на вопрос FAQ: {expected_question}")
+    @pytest.mark.parametrize("index,expected_question,expected_answer", [
+        (i, FAQ_DATA[i][0], FAQ_DATA[i][1]) for i in range(len(FAQ_DATA))
+    ])
+    def test_faq_question(self, driver, index, expected_question, expected_answer):
+        page = MainPage(driver)
+        page.open(BASE_URL)
+        page.click_faq_question(index)
+        answer = page.get_faq_answer_text(index)
+        assert expected_answer in answer

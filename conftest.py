@@ -1,13 +1,11 @@
-from faker import Faker
-import random
+import pytest
+from selenium import webdriver
 
-fake = Faker('ru_RU')
-
-def generate_name():
-    return fake.first_name()
-
-def generate_surname():
-    return fake.last_name()
-
-def generate_phone():
-    return '+7' + ''.join([str(random.randint(0, 9)) for _ in range(10)])
+@pytest.fixture
+def driver():
+    options = webdriver.FirefoxOptions()
+    options.add_argument('--headless')
+    driver = webdriver.Firefox(options=options)
+    driver.implicitly_wait(5)
+    yield driver
+    driver.quit()
