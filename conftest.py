@@ -6,7 +6,7 @@ from selenium import webdriver
 @pytest.fixture
 def driver():
     options = webdriver.FirefoxOptions()
-    options.add_argument('--headless')  # убери если нужен видимый браузер
+    options.add_argument('--headless')
     driver = webdriver.Firefox(options=options)
     driver.implicitly_wait(5)
     yield driver
