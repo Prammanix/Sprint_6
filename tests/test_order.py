@@ -3,26 +3,20 @@ import allure
 from pages.main_page import MainPage
 from pages.order_page import OrderPage
 from utils.data_generator import generate_name, generate_surname, generate_phone
-from utils.test_data import FAQ_DATA
 from pages.urls import BASE_URL
-&nbsp;
-&nbsp;
+from pages.locators import MainPageLocators
 
 @allure.feature("Order")
 class TestOrder:
-    @allure.title("Оформление заказа через кнопку '{order_button}'")
-    @pytest.mark.parametrize("order_button", ["header", "middle"])
-    def test_order_scooter(self, driver, order_button):
+    @allure.title("Оформление заказа через кнопку")
+    @pytest.mark.parametrize("order_button_locator, color_key", [
+        (MainPageLocators.ORDER_BUTTON_HEADER, "header"),
+        (MainPageLocators.ORDER_BUTTON_MIDDLE, "middle")
+    ])
+    def test_order_scooter(self, driver, order_button_locator, color_key):
         main = MainPage(driver)
         main.open(BASE_URL)
-&nbsp;
-&nbsp;
-
-        # Клик по кнопке заказа в зависимости от параметра
-        order_button_method = main.click_order_header if order_button == "header" else main.click_order_middle
-        order_button_method()
-&nbsp;
-&nbsp;
+        main.click_order_button(order_button_locator)
 
         order = OrderPage(driver)
         name = generate_name()
@@ -33,15 +27,7 @@ class TestOrder:
         order.click_next()
         order.select_date()
         order.select_rent_duration()
-&nbsp;
-&nbsp;
-
-        # Выбор цвета в зависимости от параметра
-        color_method = order.select_color_black if order_button == "header" else order.select_color_grey
-        color_method()
-&nbsp;
-&nbsp;
-
+        order.select_color(color_key)
         order.submit_order()
         order.confirm_order()
         order_number_text = order.get_order_number_text()

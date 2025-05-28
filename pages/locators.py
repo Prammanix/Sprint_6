@@ -1,6 +1,4 @@
 from selenium.webdriver.common.by import By
-&nbsp;
-&nbsp;
 
 class MainPageLocators:
     FAQ_QUESTIONS = [
@@ -23,26 +21,28 @@ class MainPageLocators:
         (By.ID, "accordion__panel-6"),
         (By.ID, "accordion__panel-7"),
     ]
-    ORDER_BUTTON_HEADER = (By.CSS_SELECTOR, ".Header_Nav__AGCXC > button:nth-child(1)")
+    ORDER_BUTTON_HEADER = (By.CSS_SELECTOR, ".Header_Nav__AGCXC > button[placeholder='Заказать'], .Header_Nav__AGCXC > button")  # уточните селектор, если placeholder нет
     ORDER_BUTTON_MIDDLE = (By.CSS_SELECTOR, ".Button_UltraBig__UU3Lp")
-&nbsp;
-&nbsp;
 
 class OrderPageLocators:
-    NAME_INPUT = (By.CSS_SELECTOR, ".Order_Form__17u6u > div:nth-child(1) > input:nth-child(1)")
-    SURNAME_INPUT = (By.CSS_SELECTOR, "div.Input_InputContainer__3NykH:nth-child(2) > input:nth-child(1)")
-    ADDRESS_INPUT = (By.CSS_SELECTOR, "div.Input_InputContainer__3NykH:nth-child(3) > input:nth-child(1)")
+    NAME_INPUT = (By.CSS_SELECTOR, "input[placeholder='* Имя']")
+    SURNAME_INPUT = (By.CSS_SELECTOR, "input[placeholder='* Фамилия']")
+    ADDRESS_INPUT = (By.CSS_SELECTOR, "input[placeholder='* Адрес: куда привезти заказ']")
     METRO_INPUT = (By.CSS_SELECTOR, ".select-search__input")
     METRO_OPTION_9 = (By.CSS_SELECTOR, "li.select-search__row:nth-child(9)")
-    PHONE_INPUT = (By.CSS_SELECTOR, "div.Input_InputContainer__3NykH:nth-child(5) > input:nth-child(1)")
+    PHONE_INPUT = (By.CSS_SELECTOR, "input[placeholder='* Телефон: на него позвонит курьер']")
     NEXT_BUTTON = (By.CSS_SELECTOR, ".Button_Middle__1CSJM")
     DATE_INPUT = (By.CSS_SELECTOR, ".react-datepicker-ignore-onclickoutside")
     DATE_PICKER_DAY = (By.CSS_SELECTOR, ".react-datepicker__day--031")
     RENT_DROPDOWN = (By.CSS_SELECTOR, ".Dropdown-control")
     RENT_OPTION_1 = (By.CSS_SELECTOR, "div.Dropdown-menu > div:nth-child(1)")
-    COLOR_BLACK = (By.CSS_SELECTOR, "label[for='black']")
-    COLOR_GREY = (By.CSS_SELECTOR, "label[for='grey']")
-    ORDER_SUBMIT = (By.CSS_SELECTOR, ".Button_Middle__1CSJM:nth-child(2)")
+    ORDER_SUBMIT = (By.CSS_SELECTOR, "button.Button_Middle__1CSJM:nth-child(2)")
     CONFIRM_YES = (By.CSS_SELECTOR, "div.Order_Buttons__1xGrp:nth-child(2) > button:nth-child(2)")
     ORDER_NUMBER = (By.CSS_SELECTOR, "div.Order_Text__2broi")
     CLOSE_MODAL = (By.CSS_SELECTOR, "button:contains('Посмотреть статус')")
+
+    # Цвета
+    COLOR_OPTIONS = {
+        "header": (By.CSS_SELECTOR, "label[for='black']"),
+        "middle": (By.CSS_SELECTOR, "label[for='grey']")
+    }

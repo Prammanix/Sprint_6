@@ -1,7 +1,5 @@
 import pytest
 from selenium import webdriver
-&nbsp;
-&nbsp;
 
 @pytest.fixture
 def driver():
